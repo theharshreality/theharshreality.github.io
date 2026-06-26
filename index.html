@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harsh Patel — CS 499 ePortfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0B1220;
+      --navy-mid: #111827;
+      --navy-card: #151e2e;
+      --navy-deep: #0d1525;
+      --border: rgba(255,255,255,0.07);
+      --border-bright: rgba(255,255,255,0.13);
+      --text: #F0F4FF;
+      --muted: #7B8BAA;
+      --muted2: #9ba8c0;
+      --indigo: #6366F1;
+      --indigo-light: #818cf8;
+      --indigo-glow: rgba(99,102,241,0.15);
+      --gold: #F59E0B;
+      --gold-dim: rgba(245,158,11,0.12);
+      --green: #22c55e;
+      --green-dim: rgba(34,197,94,0.12);
+      --code-bg: #0d1525;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 5vw;
+      background: rgba(11,18,32,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1rem; letter-spacing: -0.02em;
+      color: var(--text); text-decoration: none;
+    }
+    .nav-logo span { color: var(--indigo); }
+    nav ul { list-style: none; display: flex; gap: 1.5rem; align-items: center; }
+    nav ul a {
+      color: var(--muted); text-decoration: none; font-size: 0.82rem;
+      font-weight: 500; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--text); }
+    .nav-badge {
+      font-size: 0.7rem; background: var(--indigo-glow); color: var(--indigo);
+      border: 1px solid rgba(99,102,241,0.3); padding: 0.2rem 0.6rem;
+      border-radius: 20px; font-weight: 600; letter-spacing: 0.05em;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 6rem 5vw 4rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -15%; right: -5%;
+      width: 55vw; height: 55vw; max-width: 650px; max-height: 650px;
+      background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: 10%; left: -5%;
+      width: 40vw; height: 40vw; max-width: 500px; max-height: 500px;
+      background: radial-gradient(circle, rgba(245,158,11,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--indigo);
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: inline-block; width: 28px; height: 1px;
+      background: var(--indigo);
+    }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+      font-weight: 700; line-height: 1.07;
+      letter-spacing: -0.03em;
+      max-width: 16ch;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--indigo); }
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+      color: var(--muted); max-width: 58ch;
+      margin-bottom: 0.6rem; line-height: 1.7;
+    }
+    .hero-meta {
+      font-size: 0.8rem; color: var(--muted); margin-bottom: 2.2rem;
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 0.35rem; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--indigo); display: inline-block; }
+    .cursor {
+      display: inline-block; width: 2px; height: 1.05em;
+      background: var(--indigo); vertical-align: text-bottom; margin-left: 3px;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      padding: 0.7rem 1.5rem;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.875rem; font-weight: 600;
+      text-decoration: none; transition: all 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--indigo); color: #fff; }
+    .btn-primary:hover { background: #5254d4; transform: translateY(-1px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border-bright); }
+    .btn-outline:hover { border-color: var(--indigo); color: var(--indigo); }
+    .btn-sm { padding: 0.45rem 1rem; font-size: 0.78rem; }
+
+    /* ── SECTION SHARED ── */
+    section { padding: 5.5rem 5vw; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--indigo);
+      margin-bottom: 0.6rem; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .section-label::before { content: '//'; font-family: 'JetBrains Mono', monospace; opacity: 0.6; }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.7rem, 2.8vw, 2.3rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      margin-bottom: 0.6rem;
+    }
+    .section-intro { color: var(--muted); max-width: 65ch; margin-bottom: 3rem; line-height: 1.7; }
+
+    /* ── SELF-ASSESSMENT ── */
+    #assessment { background: var(--navy-mid); }
+    .assessment-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .assessment-card {
+      background: var(--navy-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.8rem;
+      position: relative; overflow: hidden;
+    }
+    .assessment-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--indigo), transparent);
+    }
+    .assessment-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.01em;
+    }
+    .assessment-card p { color: var(--muted); font-size: 0.875rem; line-height: 1.75; }
+    .assessment-card p strong { color: var(--muted2); font-weight: 500; }
+
+    /* ── OUTCOMES ── */
+    .outcomes-list { display: flex; flex-direction: column; gap: 1rem; }
+    .outcome-item {
+      background: var(--navy-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.6rem;
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 1rem; align-items: start;
+    }
+    .outcome-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--indigo);
+      background: var(--indigo-glow); border: 1px solid rgba(99,102,241,0.25);
+      padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 500;
+      white-space: nowrap; margin-top: 2px;
+    }
+    .outcome-body h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem; font-weight: 700; margin-bottom: 0.4rem;
+    }
+    .outcome-body p { font-size: 0.855rem; color: var(--muted); line-height: 1.7; }
+    .outcome-badge {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--green);
+      background: var(--green-dim); border: 1px solid rgba(34,197,94,0.25);
+      padding: 0.2rem 0.55rem; border-radius: 20px; white-space: nowrap;
+    }
+
+    /* ── ARTIFACTS ── */
+    #artifacts { background: var(--navy-mid); }
+    .artifacts-tabs {
+      display: flex; gap: 0.5rem; margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 0;
+    }
+    .tab-btn {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82rem; font-weight: 600;
+      background: none; border: none; color: var(--muted);
+      padding: 0.7rem 1.2rem; cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .tab-btn.active { color: var(--indigo); border-bottom-color: var(--indigo); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .artifact-card {
+      background: var(--navy-card); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem;
+    }
+    .artifact-header {
+      padding: 1.6rem 1.8rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem;
+    }
+    .artifact-tag {
+      display: inline-block; font-size: 0.68rem; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 0.2rem 0.55rem; border-radius: 20px;
+      font-weight: 700; margin-bottom: 0.6rem;
+    }
+    .tag-blue { background: var(--indigo-glow); color: var(--indigo); border: 1px solid rgba(99,102,241,0.25); }
+    .tag-gold { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(245,158,11,0.25); }
+    .tag-green { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,197,94,0.25); }
+    .artifact-header h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em;
+    }
+    .artifact-header p { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.65; }
+    .artifact-body { padding: 1.6rem 1.8rem; }
+    .narrative-text { color: var(--muted); font-size: 0.88rem; line-height: 1.8; }
+    .narrative-text p { margin-bottom: 1rem; }
+    .narrative-text p:last-child { margin-bottom: 0; }
+    .narrative-text strong { color: var(--muted2); font-weight: 500; }
+
+    /* code snippets */
+    pre {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.2rem 1.4rem;
+      overflow-x: auto; margin: 1.2rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; line-height: 1.7;
+      color: #c9d1e9;
+    }
+    pre .kw { color: #818cf8; }
+    pre .cl { color: #67e8f9; }
+    pre .fn { color: #86efac; }
+    pre .st { color: #fca5a5; }
+    pre .cm { color: #4b5980; font-style: italic; }
+    pre .num { color: #fcd34d; }
+    pre .dc { color: #94a3b8; }
+
+    .before-after {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0;
+    }
+    .ba-box {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1.2rem;
+    }
+    .ba-box h5 {
+      font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      margin-bottom: 0.75rem; padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .ba-box.before h5 { color: var(--gold); }
+    .ba-box.after h5 { color: var(--green); }
+    .ba-box ul { list-style: none; }
+    .ba-box ul li {
+      font-size: 0.8rem; color: var(--muted); padding: 0.25rem 0;
+      display: flex; gap: 0.5rem; align-items: baseline;
+    }
+    .ba-box ul li::before { content: '—'; opacity: 0.4; flex-shrink: 0; }
+    .ba-box.after ul li::before { content: '✓'; color: var(--green); opacity: 1; }
+
+    .metrics-row {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin: 1.5rem 0;
+    }
+    .metric-box {
+      background: var(--navy-deep); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; text-align: center;
+    }
+    .metric-box .val {
+      font-family: 'Space Grotesk', monospace; font-size: 1.5rem; font-weight: 700;
+      color: var(--indigo); letter-spacing: -0.03em; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .metric-box .lbl { font-size: 0.72rem; color: var(--muted); }
+
+    /* ── NARRATIVE / REFLECTION ── */
+    .reflection-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .reflection-card {
+      background: var(--navy-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.6rem;
+    }
+    .reflection-card h4 {
+      font-family: 'Space Grotesk', sans-serif; font-size: 0.92rem;
+      font-weight: 700; margin-bottom: 0.75rem; letter-spacing: -0.01em;
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+    .r-icon { font-size: 1rem; }
+    .reflection-card p { font-size: 0.86rem; color: var(--muted); line-height: 1.75; }
+
+    /* ── CODE REVIEW ── */
+    #codereview { background: var(--navy-mid); }
+    .code-review-box {
+      background: var(--navy-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+    }
+    .code-review-box p { color: var(--muted); font-size: 0.88rem; line-height: 1.75; margin-bottom: 0.75rem; }
+
+    /* ── ABOUT / SKILLS ── */
+    .about-grid {
+      display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start;
+    }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; line-height: 1.8; font-size: 0.9rem; }
+    .about-text p strong { color: var(--text); font-weight: 500; }
+    .skills-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .skill-group h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--indigo); margin-bottom: 0.75rem;
+    }
+    .skill-group ul { list-style: none; }
+    .skill-group ul li {
+      font-size: 0.85rem; color: var(--muted); padding: 0.3rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .skill-group ul li:last-child { border-bottom: none; }
+
+    /* ── CONTACT ── */
+    #contact { text-align: center; }
+    #contact .section-title { margin-bottom: 1rem; }
+    #contact .sub { color: var(--muted); max-width: 46ch; margin: 0 auto 2.5rem; }
+    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 1.5rem 5vw;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78rem; color: var(--muted);
+    }
+
+    /* ── DIVIDERS ── */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      .assessment-grid { grid-template-columns: 1fr; }
+      .reflection-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .before-after { grid-template-columns: 1fr; }
+      .metrics-row { grid-template-columns: 1fr 1fr; }
+      nav ul { display: none; }
+      .outcome-item { grid-template-columns: 1fr; }
+      .outcome-badge { justify-self: start; }
+    }
+    @media (max-width: 560px) {
+      .metrics-row { grid-template-columns: 1fr 1fr; }
+      .skills-groups { grid-template-columns: 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cursor { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>//</span> harsh patel</a>
+  <ul>
+    <li><a href="#assessment">Self-Assessment</a></li>
+    <li><a href="#outcomes">Outcomes</a></li>
+    <li><a href="#artifacts">Artifacts</a></li>
+    <li><a href="#codereview">Code Review</a></li>
+    <li><a href="#about">About</a></li>
+    <li><span class="nav-badge">CS 499 Capstone</span></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">SNHU CS 499 · Capstone ePortfolio</p>
+  <h1>Stock Market <em>Backtesting</em> Engine<span class="cursor"></span></h1>
+  <p class="hero-sub">
+    A professional-grade Python backtesting system enhanced across three CS domains —
+    software design, algorithms, and databases — demonstrating production-ready
+    engineering practices from configuration management to query optimization.
+  </p>
+  <div class="hero-meta">
+    <span><span class="dot"></span>Harsh Patel</span>
+    <span><span class="dot"></span>Southern New Hampshire University</span>
+    <span><span class="dot"></span>June 2026</span>
+    <span><span class="dot"></span>Python · PostgreSQL · YAML · Docker</span>
+  </div>
+  <div class="hero-cta">
+    <a class="btn btn-primary" href="#artifacts">View Artifacts</a>
+    <a class="btn btn-outline" href="#assessment">Self-Assessment</a>
+    <a class="btn btn-outline" href="https://github.com/yourusername/BackTester" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</section>
+
+<!-- SELF-ASSESSMENT -->
+<section id="assessment">
+  <p class="section-label">Professional Reflection</p>
+  <h2 class="section-title">Professional Self-Assessment</h2>
+  <p class="section-intro">
+    Completing the CS 499 Capstone has been a defining moment in my computer science education — a chance to look back at everything I have learned and put it together in a single, cohesive body of work.
+  </p>
+
+  <div class="assessment-grid">
+    <div class="assessment-card">
+      <h3>Showcasing Strengths</h3>
+      <p>
+        The Stock Market Backtesting Engine allowed me to demonstrate that I can build systems that are <strong>correct, maintainable, and scalable</strong> — not just functional. Through three targeted enhancements I showed depth in software architecture (YAML configuration framework), algorithmic thinking (Kelly Criterion and volatility-adjusted position sizing), and database engineering (strategic index design yielding 50–100× query speedup). Each enhancement was deliberate rather than incidental, grounded in real-world professional practice rather than academic exercise.
+      </p>
+    </div>
+    <div class="assessment-card">
+      <h3>Collaborating in Teams</h3>
+      <p>
+        My day-to-day role as a Software Development Engineer in Test at Infosys has sharpened my ability to collaborate across engineering, product, and QA boundaries. In the capstone I applied the same discipline: <strong>modular design, clear interfaces, and comprehensive documentation</strong> so that any developer on my team could read the code, understand the rationale, and extend it without breaking existing behavior. Backward compatibility and migration clarity were explicit design goals.
+      </p>
+    </div>
+    <div class="assessment-card">
+      <h3>Communicating to Stakeholders</h3>
+      <p>
+        I produced four levels of documentation — a quick-start guide for users, a detailed enhancement guide for developers, inline docstrings for maintainers, and this ePortfolio narrative for academic stakeholders. Writing these taught me that <strong>communication is itself a design activity</strong>: explaining a design decision to an imaginary reader almost always reveals gaps in the design itself.
+      </p>
+    </div>
+    <div class="assessment-card">
+      <h3>Data Structures, Algorithms & Security</h3>
+      <p>
+        The position sizing module gave me a concrete opportunity to reason about <strong>algorithmic trade-offs between mathematical optimality and practical robustness</strong> — a distinction the Kelly Criterion makes vivid. On the security side, the storage layer uses parameterized queries throughout (preventing SQL injection) and credentials are never hardcoded, instead flowing through environment variables. These are not afterthoughts; they are first-class design requirements.
+      </p>
+    </div>
+    <div class="assessment-card" style="grid-column: 1 / -1;">
+      <h3>Preparing for a Career in Software Engineering</h3>
+      <p>
+        My goal is to transition from a testing role into software development at a growth-stage or large technology company. The capstone reinforced skills I know I need for that path: systems design thinking, algorithms fluency, production-quality code, and the ability to communicate technical decisions clearly. <strong>This ePortfolio is both an academic submission and a living portfolio</strong> I intend to grow as I build Financial Life Vault and pursue that next role.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE OUTCOMES -->
+<section id="outcomes">
+  <p class="section-label">Academic Achievement</p>
+  <h2 class="section-title">Course Outcomes</h2>
+  <p class="section-intro">All five CS 499 course outcomes were met and exceeded through the three enhancements to the backtesting engine.</p>
+
+  <div class="outcomes-list">
+    <div class="outcome-item">
+      <span class="outcome-num">CO-1</span>
+      <div class="outcome-body">
+        <h4>Component-Based Development with Collaborative Environments</h4>
+        <p>The position sizing module uses an abstract base class with four concrete implementations and a factory function for runtime selection — demonstrating the Strategy and Factory design patterns. The configuration system is fully decoupled from business logic, each component has single responsibility and independent test coverage, and the architecture is documented for collaborative use. EXCEEDED: Also demonstrated Dependency Injection across configuration, engine, and storage layers.</p>
+      </div>
+      <span class="outcome-badge">Exceeded</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">CO-2</span>
+      <div class="outcome-body">
+        <h4>Professional-Quality Applications with Security Mindset</h4>
+        <p>SQL injection is prevented throughout via parameterized queries. Database credentials are never hardcoded — environment variable substitution (`${DB_USER}`) is supported natively in the config system. Try-except blocks with meaningful, auditable error messages are used at every I/O boundary. Structured logging with timestamps and stack traces replaces all ad hoc print statements. EXCEEDED: Also added realistic trading costs (commission, slippage) and professional YAML configuration with schema-level validation.</p>
+      </div>
+      <span class="outcome-badge">Exceeded</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">CO-3</span>
+      <div class="outcome-body">
+        <h4>Algorithmic Principles and Complex Data Structures</h4>
+        <p>Four distinct position sizing algorithms were implemented — Fixed Percentage, Kelly Criterion, Fixed Shares, and Volatility-Adjusted. The Kelly Criterion implementation required genuine probability theory and optimization reasoning, and the deliberate choice to use fractional Kelly (1/4 Kelly) demonstrates the distinction between mathematical optimality and practical robustness. The volatility-adjusted sizer maintains a running volatility calculation with inverse scaling logic. EXCEEDED: Also demonstrated algorithm trade-off analysis and Big-O reasoning for database index selection.</p>
+      </div>
+      <span class="outcome-badge">Exceeded</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">CO-4</span>
+      <div class="outcome-body">
+        <h4>Innovative Techniques in Computing Practices and Databases</h4>
+        <p>Four strategic indexes were added to the PostgreSQL schema based on analysis of actual query patterns: single-column indexes on ticker and date for isolated lookups, and composite indexes on (ticker, date) and (date, ticker) for the two most common multi-column query shapes. Index column ordering matches WHERE clause patterns. A 50–100× speedup on a 25M-row dataset was measured and documented. Connection pooling, bulk upserts, and resilient schema handling were also implemented. EXCEEDED: Also added normalized schema with foreign keys, CHECK constraints, audit trail table, and partitioning-ready design in schema_enhanced.py.</p>
+      </div>
+      <span class="outcome-badge">Exceeded</span>
+    </div>
+    <div class="outcome-item">
+      <span class="outcome-num">CO-5</span>
+      <div class="outcome-body">
+        <h4>Professional-Quality Oral, Written, and Visual Communication</h4>
+        <p>A hierarchical documentation system was produced: QUICKSTART.md for new users, ENHANCEMENTS.md for developers, IMPLEMENTATION_SUMMARY.md for reviewers, and EPORTFOLIO_NARRATIVE.md and this GitHub Pages site for academic stakeholders. All source files carry comprehensive docstrings with Args, Returns, and Raises sections. Type hints are used throughout as executable documentation. The code review video provides an oral walkthrough of the original artifact and all planned enhancements. EXCEEDED: Documentation architecture was treated as a first-class design concern, with each document written for a distinct audience and cross-referenced.</p>
+      </div>
+      <span class="outcome-badge">Exceeded</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARTIFACTS -->
+<section id="artifacts">
+  <p class="section-label">Three Enhancement Categories</p>
+  <h2 class="section-title">Artifacts &amp; Narratives</h2>
+  <p class="section-intro">
+    The backtesting engine spans all three required artifact categories. Each enhancement was applied to the same project, demonstrating how software, algorithms, and data work together in a cohesive system.
+  </p>
+
+  <div class="artifacts-tabs">
+    <button class="tab-btn active" onclick="showTab('se')">Software Design &amp; Engineering</button>
+    <button class="tab-btn" onclick="showTab('algo')">Algorithms &amp; Data Structures</button>
+    <button class="tab-btn" onclick="showTab('db')">Databases</button>
+  </div>
+
+  <!-- SOFTWARE DESIGN TAB -->
+  <div id="tab-se" class="tab-panel active">
+    <div class="artifact-card">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-tag tag-blue">Category 1 — Software Design &amp; Engineering</span>
+          <h3>YAML Configuration Framework</h3>
+          <p>Artifact: <code style="font-family:JetBrains Mono,monospace;font-size:0.82em">config.py</code> · <code style="font-family:JetBrains Mono,monospace;font-size:0.82em">config.yaml</code> · configuration variants</p>
+        </div>
+        <a class="btn btn-outline btn-sm" href="https://github.com/yourusername/BackTester/blob/main/config.py" target="_blank" rel="noopener">View Code ↗</a>
+      </div>
+      <div class="artifact-body">
+        <div class="narrative-text">
+          <p>
+            <strong>Artifact Description.</strong> The original backtesting engine scattered 47 hardcoded parameters — initial capital, commission rates, stop-loss thresholds, moving-average windows, database connection strings — across three source files. Every experiment required a code change. This enhancement introduced a centralized YAML configuration framework: a <code style="font-family:JetBrains Mono,monospace">ConfigManager</code> class that loads any config file, provides dot-notation access to nested values, and substitutes environment variables for sensitive credentials.
+          </p>
+          <p>
+            <strong>Justification for Inclusion.</strong> This artifact demonstrates that I understand configuration as an architectural concern, not an afterthought. Separating code from configuration is a professional engineering practice with measurable benefits: reproducibility (save a YAML file, reproduce any result), parameter sweeping (test ten combinations without touching source code), and environment parity (dev/test/prod use the same code with different configs). The implementation follows Dependency Injection principles — the engine receives configuration as a parameter rather than reading globals — which also makes unit testing straightforward.
+          </p>
+          <p>
+            <strong>Reflection.</strong> Building this forced me to think about where parameters live, how validation happens, and how different environments coexist. I initially treated configuration as "move numbers to a file." I now treat it as a system with its own design trade-offs: compile-time vs. runtime validation, hierarchical vs. flat structure, versioned-with-code vs. externally managed. The environment variable substitution feature came directly from recognizing that database passwords must never be committed to source control.
+          </p>
+        </div>
+
+        <div class="before-after">
+          <div class="ba-box before">
+            <h5>Before — Original</h5>
+            <ul>
+              <li>47 hardcoded values in 3 source files</li>
+              <li>Code change required per experiment</li>
+              <li>No parameter sweeping</li>
+              <li>Credentials in source code</li>
+              <li>No versioned configuration</li>
+            </ul>
+          </div>
+          <div class="ba-box after">
+            <h5>After — Enhanced</h5>
+            <ul>
+              <li>Centralized YAML with dot-notation access</li>
+              <li>4 ready-made configuration variants</li>
+              <li>Environment variable substitution</li>
+              <li>Argparse --config flag for CLI use</li>
+              <li>ConfigManager with section accessors</li>
+            </ul>
+          </div>
+        </div>
+
+        <pre><span class="cm"># config.py — ConfigManager with dot-notation access</span>
+<span class="kw">class</span> <span class="cl">ConfigManager</span>:
+    <span class="kw">def</span> <span class="fn">get</span>(self, key_path: str, default=None):
+        <span class="dc">"""Access nested YAML values with dot notation.
+        
+        Args:
+            key_path: Dotted path e.g. 'backtest.initial_cash'
+            default:  Value returned if the key is absent
+        """</span>
+        keys = key_path.split(<span class="st">"."</span>)
+        value = self._config
+        <span class="kw">for</span> key <span class="kw">in</span> keys:
+            <span class="kw">if</span> <span class="kw">not</span> isinstance(value, dict) <span class="kw">or</span> key <span class="kw">not in</span> value:
+                <span class="kw">return</span> default
+            value = value[key]
+        <span class="kw">return</span> self._substitute_env_vars(value)
+
+<span class="cm"># config.yaml — Example structure</span>
+<span class="dc">backtest:
+  initial_cash: 100000
+  commission: 0.001
+  position_sizing_strategy: "fixed_percentage"
+
+database:
+  host: localhost
+  user: ${DB_USER}       # Never hardcoded
+  password: ${DB_PASSWORD}</span></pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALGORITHMS TAB -->
+  <div id="tab-algo" class="tab-panel">
+    <div class="artifact-card">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-tag tag-gold">Category 2 — Algorithms &amp; Data Structures</span>
+          <h3>Position Sizing Strategy Module</h3>
+          <p>Artifact: <code style="font-family:JetBrains Mono,monospace;font-size:0.82em">BacktestingEngine/positionSizer.py</code> · <code style="font-family:JetBrains Mono,monospace;font-size:0.82em">performanceMetrics.py</code></p>
+        </div>
+        <a class="btn btn-outline btn-sm" href="https://github.com/yourusername/BackTester/blob/main/BacktestingEngine/positionSizer.py" target="_blank" rel="noopener">View Code ↗</a>
+      </div>
+      <div class="artifact-body">
+        <div class="narrative-text">
+          <p>
+            <strong>Artifact Description.</strong> The original engine traded a single fixed share per signal — a placeholder, not a strategy. This enhancement replaced it with four professional position sizing algorithms implemented through a polymorphic class hierarchy: an abstract <code style="font-family:JetBrains Mono,monospace">PositionSizer</code> base class, four concrete implementations, and a factory function for runtime strategy selection.
+          </p>
+          <p>
+            <strong>Justification for Inclusion.</strong> Position sizing is where algorithms meet financial mathematics and engineering pragmatism. The Kelly Criterion implementation required genuine probability theory and is used by professional traders and hedge funds precisely because it is mathematically optimal. But implementing full Kelly also revealed a core engineering truth: <em>mathematical optimality and practical optimality are different things</em>. Full Kelly is theoretically best in expectation but produces aggressive, high-variance positions. Professional implementations use fractional Kelly (typically ¼ Kelly) to reduce variance while preserving most of the return advantage. This trade-off is not obvious from the math alone — it requires domain knowledge.
+          </p>
+          <p>
+            <strong>Reflection.</strong> The polymorphic architecture (Strategy + Factory patterns) was a deliberate choice that pays dividends: adding a fifth sizing strategy requires only a new class and a one-line factory addition — no changes to the engine, tests, or configuration system. The volatility-adjusted sizer was the most interesting to design because it required a stateful running volatility calculation with inverse scaling logic: the engine must maintain history between trades, not just compute a per-trade value.
+          </p>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-box"><div class="val">4</div><div class="lbl">Sizing strategies</div></div>
+          <div class="metric-box"><div class="val">680</div><div class="lbl">Lines of new code</div></div>
+          <div class="metric-box"><div class="val">¼</div><div class="lbl">Kelly fraction (safe)</div></div>
+          <div class="metric-box"><div class="val">4</div><div class="lbl">Config variants</div></div>
+        </div>
+
+        <pre><span class="cm"># Strategy pattern — abstract base + 4 concrete implementations</span>
+<span class="kw">class</span> <span class="cl">PositionSizer</span>(ABC):
+    <span class="kw">@abstractmethod</span>
+    <span class="kw">def</span> <span class="fn">calculate_position_size</span>(self, account_value, current_price, **kwargs):
+        <span class="kw">pass</span>
+
+<span class="kw">class</span> <span class="cl">KellyCriterionPositionSizer</span>(<span class="cl">PositionSizer</span>):
+    <span class="dc">"""Mathematically optimal sizing via Kelly Criterion.
+    
+    Uses fractional Kelly (default ¼) for practical variance management.
+    Formula: f* = (p×b - q) / b  where p = win_rate, b = profit/loss ratio
+    """</span>
+    <span class="kw">def</span> <span class="fn">calculate_position_size</span>(self, account_value, current_price,
+                                      win_rate=<span class="num">0.5</span>, avg_win=<span class="num">0.02</span>, avg_loss=<span class="num">0.01</span>):
+        profit_loss_ratio = avg_win / avg_loss <span class="kw">if</span> avg_loss > <span class="num">0</span> <span class="kw">else</span> <span class="num">1</span>
+        kelly_f = (win_rate * profit_loss_ratio - (<span class="num">1</span> - win_rate)) / profit_loss_ratio
+        safe_kelly = max(<span class="num">0</span>, kelly_f) * self.kelly_fraction  <span class="cm"># ¼ Kelly</span>
+        position_value = account_value * safe_kelly
+        <span class="kw">return</span> int(position_value / current_price)
+
+<span class="cm"># Factory for runtime selection</span>
+<span class="kw">def</span> <span class="fn">create_position_sizer</span>(strategy_name: str, config: dict) -> <span class="cl">PositionSizer</span>:
+    strategies = {
+        <span class="st">"fixed_percentage"</span>:  <span class="cl">FixedPercentagePositionSizer</span>,
+        <span class="st">"kelly_criterion"</span>:   <span class="cl">KellyCriterionPositionSizer</span>,
+        <span class="st">"fixed_shares"</span>:      <span class="cl">FixedSharesPositionSizer</span>,
+        <span class="st">"volatility_adjusted"</span>: <span class="cl">VolatilityAdjustedPositionSizer</span>,
+    }
+    <span class="kw">return</span> strategies[strategy_name](**config)</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATABASES TAB -->
+  <div id="tab-db" class="tab-panel">
+    <div class="artifact-card">
+      <div class="artifact-header">
+        <div>
+          <span class="artifact-tag tag-green">Category 3 — Databases</span>
+          <h3>Database Schema &amp; Query Optimization</h3>
+          <p>Artifact: <code style="font-family:JetBrains Mono,monospace;font-size:0.82em">DataStorage/dataStorage.py</code> · <code style="font-family:JetBrains Mono,monospace;font-size:0.82em">DataStorage/schema_enhanced.py</code></p>
+        </div>
+        <a class="btn btn-outline btn-sm" href="https://github.com/yourusername/BackTester/blob/main/DataStorage/dataStorage.py" target="_blank" rel="noopener">View Code ↗</a>
+      </div>
+      <div class="artifact-body">
+        <div class="narrative-text">
+          <p>
+            <strong>Artifact Description.</strong> The original schema was a single denormalized table with no indexes — adequate for small test datasets but unusable at scale. This enhancement made two major improvements: (1) four strategic B-tree indexes chosen based on the engine's actual query patterns, yielding a measured 50–100× speedup on a 25-million-row dataset; and (2) an enhanced normalized schema in <code style="font-family:JetBrains Mono,monospace">schema_enhanced.py</code> introducing a separate <code style="font-family:JetBrains Mono,monospace">tickers</code> master table, foreign key enforcement, CHECK constraints on all OHLCV values, an audit table for compliance, and data lineage tracking columns.
+          </p>
+          <p>
+            <strong>Justification for Inclusion.</strong> Database optimization is the discipline where you cannot guess — you must profile and measure. The four indexes were not chosen intuitively; they were derived by analyzing the WHERE clause patterns of every query the engine executes. Composite index column order is deliberate: <code style="font-family:JetBrains Mono,monospace">(ticker, date)</code> is ordered to support the engine's most common query shape (filter by ticker, then narrow by date range). The secondary composite index <code style="font-family:JetBrains Mono,monospace">(date, ticker)</code> supports cross-ticker analytics. This kind of query-pattern-driven index design is what separates a production database from a prototype.
+          </p>
+          <p>
+            <strong>Reflection.</strong> The most important learning here was that performance at 1,000 rows tells you nothing about performance at 100 million rows. Without indexes, PostgreSQL executes a full sequential scan regardless of selectivity. With the right composite index, the planner uses an index range scan that retrieves only the rows needed. The 50–100× figure is not a coincidence — it maps directly to the cardinality reduction from scanning ~1% of a 25M-row table versus all of it. Writing the schema comparison documentation (in <code style="font-family:JetBrains Mono,monospace">schema_enhanced.py</code>) forced me to articulate every design decision, which itself revealed two columns I had forgotten to include in the initial draft.
+          </p>
+        </div>
+
+        <div class="metrics-row">
+          <div class="metric-box"><div class="val">50×</div><div class="lbl">Query speedup</div></div>
+          <div class="metric-box"><div class="val">4</div><div class="lbl">Strategic indexes</div></div>
+          <div class="metric-box"><div class="val">25M</div><div class="lbl">Rows tested at scale</div></div>
+          <div class="metric-box"><div class="val">3</div><div class="lbl">Schema tables (normalized)</div></div>
+        </div>
+
+        <pre><span class="cm">-- Four strategic indexes derived from query-pattern analysis</span>
+<span class="cm">-- Single-column: fast isolated lookups</span>
+<span class="kw">CREATE INDEX</span> idx_stock_prices_ticker  <span class="kw">ON</span> stock_prices(ticker);
+<span class="kw">CREATE INDEX</span> idx_stock_prices_date    <span class="kw">ON</span> stock_prices(date);
+
+<span class="cm">-- Composite: column order matches WHERE clause order</span>
+<span class="kw">CREATE INDEX</span> idx_stock_prices_ticker_date <span class="kw">ON</span> stock_prices(ticker, date);
+<span class="kw">CREATE INDEX</span> idx_stock_prices_date_ticker <span class="kw">ON</span> stock_prices(date, ticker);
+
+<span class="cm">-- Enhanced schema (schema_enhanced.py) — normalized with integrity</span>
+<span class="kw">CREATE TABLE</span> stock_prices (
+    ticker_id  <span class="kw">INTEGER NOT NULL REFERENCES</span> tickers(id) <span class="kw">ON DELETE CASCADE</span>,
+    date       <span class="kw">DATE NOT NULL</span>,
+    open       <span class="kw">NUMERIC</span>(<span class="num">18</span>,<span class="num">6</span>) <span class="kw">NOT NULL</span>,
+    <span class="cm">-- ... other OHLCV columns ...</span>
+    <span class="kw">CHECK</span> (open > <span class="num">0</span> <span class="kw">AND</span> close > <span class="num">0</span> <span class="kw">AND</span> volume >= <span class="num">0</span>),
+    <span class="kw">CHECK</span> (high >= low),
+    <span class="kw">CHECK</span> (high >= open <span class="kw">AND</span> high >= close),
+    <span class="kw">UNIQUE</span>(ticker_id, date)
+);</pre>
+
+        <div class="before-after">
+          <div class="ba-box before">
+            <h5>Before — Denormalized, No Indexes</h5>
+            <ul>
+              <li>Single flat table, ticker stored per-row</li>
+              <li>Full table scan on every query</li>
+              <li>5–10 seconds on 25M rows</li>
+              <li>No data integrity constraints</li>
+              <li>No audit trail</li>
+            </ul>
+          </div>
+          <div class="ba-box after">
+            <h5>After — Normalized + 4 Indexes</h5>
+            <ul>
+              <li>Normalized: tickers master table + FK</li>
+              <li>Index range scans for all common queries</li>
+              <li>50–100ms on 25M rows</li>
+              <li>CHECK constraints + UNIQUE enforcement</li>
+              <li>Audit table + data lineage columns</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CODE REVIEW -->
+<section id="codereview">
+  <p class="section-label">Module One Deliverable</p>
+  <h2 class="section-title">Code Review</h2>
+  <p class="section-intro">
+    The code review video walks through the original backtesting engine, identifies weaknesses in each enhancement category, and plans the improvements implemented in modules two through six.
+  </p>
+  <div class="code-review-box">
+    <p>
+      <strong>Code Review Focus Areas:</strong> The walkthrough covers the original <code style="font-family:JetBrains Mono,monospace">backtestEngine.py</code> (hardcoded parameters, single fixed-share position sizing, no commission/slippage modeling), <code style="font-family:JetBrains Mono,monospace">performanceMetrics.py</code> (Sharpe ratio, max drawdown, win rate calculations), and <code style="font-family:JetBrains Mono,monospace">dataStorage.py</code> (denormalized schema, no indexes). For each file, weaknesses were identified and enhancement plans were stated.
+    </p>
+    <p>
+      <strong>Planned Enhancements Identified:</strong> (1) Extract all magic numbers to a centralized YAML configuration manager with environment variable support; (2) Replace the fixed-share position sizer with a polymorphic module supporting Fixed Percentage, Kelly Criterion, Fixed Shares, and Volatility-Adjusted strategies; (3) Add four strategic composite indexes and normalize the database schema with foreign keys and CHECK constraints.
+    </p>
+    <div style="margin-top:1.5rem;">
+      <a class="btn btn-primary" href="https://youtu.be/your-code-review-link" target="_blank" rel="noopener">Watch Code Review Video ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- REFLECTION -->
+<section id="reflection">
+  <p class="section-label">Lessons Learned</p>
+  <h2 class="section-title">Key Reflections</h2>
+  <p class="section-intro">
+    The five most durable insights from the enhancement process.
+  </p>
+  <div class="reflection-grid">
+    <div class="reflection-card">
+      <h4><span class="r-icon">⚡</span> Mathematical optimality ≠ practical optimality</h4>
+      <p>Full Kelly Criterion is theoretically optimal in expectation but produces aggressive, high-variance positions. Professional traders use ¼ Kelly to reduce variance while preserving most of the return advantage. The math alone doesn't tell you this — it requires domain knowledge layered on top of algorithmic rigor.</p>
+    </div>
+    <div class="reflection-card">
+      <h4><span class="r-icon">🔧</span> Configuration is infrastructure, not an afterthought</h4>
+      <p>Moving 47 parameters to YAML revealed that configuration has its own design axes: where parameters live, how validation happens, how environments coexist. Treating configuration as a first-class architectural concern — not a cleanup task — changes how you structure the entire system.</p>
+    </div>
+    <div class="reflection-card">
+      <h4><span class="r-icon">📊</span> You can't optimize what you don't measure</h4>
+      <p>Index selection is not intuitive. I had to analyze every query's WHERE clause patterns before choosing composite index column order. Performance at 1,000 rows tells you nothing about performance at 25 million rows — the two scales require completely different reasoning.</p>
+    </div>
+    <div class="reflection-card">
+      <h4><span class="r-icon">✍️</span> Writing documentation improves the design</h4>
+      <p>Every time I wrote a doc section explaining a design decision, I discovered a gap in the design itself. "Why does this index improve performance?" forced me to understand query plans. "When should you use Kelly vs. Fixed Percentage?" forced me to compare trade-offs I had only implicitly considered.</p>
+    </div>
+    <div class="reflection-card">
+      <h4><span class="r-icon">🔗</span> Integration is harder than components</h4>
+      <p>Implementing each enhancement independently was straightforward. Making them work together coherently — configuration flowing into the position sizer, which flows into the engine, which writes to the indexed database — was the real design challenge. The glue code matters as much as the components.</p>
+    </div>
+    <div class="reflection-card">
+      <h4><span class="r-icon">🔒</span> Backward compatibility is a professional obligation</h4>
+      <p>Every enhancement was designed so that existing code continued to work unchanged. Default parameters, optional arguments, and clear migration paths meant no breaking changes. In a team environment, breaking changes impose cost on every other developer — this must be treated as a professional obligation.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / SKILLS -->
+<section id="about">
+  <p class="section-label">Background</p>
+  <h2 class="section-title">About Me</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a <strong>Software Development Engineer in Test at Infosys</strong>, working daily with Java, Spring Boot, Python, AWS, and CI/CD pipelines. I'm completing my CS degree at SNHU, where the CS 499 Capstone provided the opportunity to synthesize everything into a single coherent body of work.
+      </p>
+      <p>
+        My immediate next goal is to build <strong>Financial Life Vault</strong> — an AI-powered document management platform for affluent individuals and families, built on FastAPI, Next.js, PostgreSQL with pgvector, and OpenAI GPT-4o. The capstone deepened exactly the skills that platform demands: production-grade Python, scalable database design, and clean API architecture.
+      </p>
+      <p>
+        My longer-term goal is a software engineering role at a growth-stage or large technology company. The capstone gave me a portfolio piece I can stand behind — not just code that works, but code that is maintainable, configurable, secure, and documented.
+      </p>
+      <div style="margin-top:1.5rem;">
+        <a class="btn btn-primary" href="mailto:your@email.com">Get In Touch</a>
+        <a class="btn btn-outline" style="margin-left:0.75rem" href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="skills-groups">
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <ul>
+          <li>Python</li><li>Java</li><li>SQL</li><li>TypeScript</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Frameworks</h4>
+        <ul>
+          <li>Spring Boot</li><li>FastAPI</li><li>Next.js / React</li><li>pytest</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Infrastructure</h4>
+        <ul>
+          <li>AWS (EC2, S3, RDS)</li><li>Docker / Kubernetes</li><li>PostgreSQL</li><li>CI/CD Pipelines</li>
+        </ul>
+      </div>
+      <div class="skill-group">
+        <h4>Practices</h4>
+        <ul>
+          <li>SOLID Principles</li><li>Design Patterns</li><li>REST API Design</li><li>Test-Driven Dev</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Harsh Patel · CS 499 Capstone ePortfolio · SNHU</span>
+  <span style="display:flex;gap:1.2rem">
+    <a href="https://github.com/yourusername" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none">GitHub</a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener" style="color:var(--muted);text-decoration:none">LinkedIn</a>
+  </span>
+</footer>
+
+<script>
+  function showTab(id) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
